@@ -1,4 +1,10 @@
+interface resModel {
+    code:number
+    msg:string
+    data:any
+  }
+  
 
-export interface requestT {
-    <T>(data?: T): Promise<any>
+export interface requestModel {
+    <T>(data?: T): Promise<resModel>
  }
