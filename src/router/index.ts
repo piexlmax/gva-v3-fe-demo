@@ -8,7 +8,7 @@ import { createRouter,createWebHistory} from "vue-router";
 
 
 const baseRoutes=[
-  { path: 'layout',component:() => import("@/view/layout/layout.vue") },
+  { path: 'layout',component:() => import("@/view/layout/index.vue") },
 ]
 
 const routes = [

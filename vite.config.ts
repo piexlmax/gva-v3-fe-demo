@@ -14,7 +14,16 @@ export default defineConfig(({mode}:UserConfig):UserConfig=>{
     resolve:{
       alias: {
         '@': resolve(__dirname, '/src'),
+        '#': resolve(__dirname, '/src/types'),
       }
+      //     [
+      //   {
+      //     find:/\/@\//,
+      //     replacement:resolve(__dirname,"/src/")
+      //   }
+      // ]
+
+
   },
   server: {
     port:Number(GVA_ENV.VITE_BASE_CLI_PORT),
