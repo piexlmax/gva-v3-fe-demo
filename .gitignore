@@ -5,7 +5,7 @@
 
 # TODO: where does this rule come from?
 docs/_book
-
+.idea/
 # TODO: where does this rule come from?
 test/
 node_modules/
