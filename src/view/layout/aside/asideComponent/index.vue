@@ -6,7 +6,7 @@
   </component>
 </template>
 
-<script>
+<script lang="ts">
 import MenuItem from './menuItem'
 import AsyncSubmenu from './asyncSubmenu'
 import {computed, defineComponent} from "vue";

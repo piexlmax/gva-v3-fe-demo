@@ -22,9 +22,9 @@
 </template>
 
 <script lang="ts">
-import { mapGetters, mapMutations } from "vuex";
+import {mapGetters, mapMutations, useStore} from "vuex";
 import AsideComponent from "@/view/layout/aside/asideComponent";
-import {defineComponent, onBeforeUnmount, reactive} from "vue";
+import {computed, defineComponent, onBeforeUnmount, reactive} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import Bus from "@/utils/bus";
 
@@ -37,7 +37,7 @@ export default defineComponent( {
 
     const Router = useRouter()
     const Route = useRoute()
-
+    const Store = useStore()
     const data = reactive({
       active: "",
       isCollapse: false
@@ -62,6 +62,9 @@ export default defineComponent( {
         }
       }
     }
+    const asyncRouters = computed(()=>{
+      return Store.state.asyncRouters
+    })
     data.active = Route.name;
     let screenWidth = document.body.clientWidth;
     if (screenWidth < 1000) {
@@ -76,18 +79,11 @@ export default defineComponent( {
     })
     return {
       ...data,
-      ...methods
+      ...methods,
+      asyncRouters
     }
   },
-
-  methods: {
-    ...mapMutations("history", ["addHistory"]),
-
-  },
-  computed: {
-    ...mapGetters("router", ["asyncRouters"])
-  },
-
+  // TODO: watch 部分
   watch: {
     $route() {
       this.active = this.$route.name;

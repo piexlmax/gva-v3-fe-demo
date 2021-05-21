@@ -58,9 +58,10 @@
     </svg>
   </div>
 </template>
-<script>
-import screenfull from 'screenfull' //引入screenfull
-export default {
+<script lang="ts">
+import screenfull  from 'screenfull'
+import {defineComponent, onMounted, onUnmounted, reactive} from "vue"; //引入screenfull
+export default defineComponent( {
   name: 'Screenfull',
   props: {
     width: {
@@ -76,30 +77,34 @@ export default {
       default: '#48576a',
     },
   },
-  data() {
-    return {
+  setup(){
+    const data = reactive({
       isShow: true,
+    })
+    const methods = {
+      click:()=> {
+        if (screenfull.isEnabled) {
+          screenfull.toggle()
+        }
+      },
+      changeFullShow:()=> {
+        data.isShow = !screenfull.isFullscreen
+      },
     }
-  },
-  mounted() {
-    if (screenfull.isEnabled) {
-      screenfull.on('change', this.changeFullShow)
-    }
-  },
-  methods: {
-    click() {
+    onMounted(()=>{
       if (screenfull.isEnabled) {
-        screenfull.toggle()
+        screenfull.on('change', methods.changeFullShow)
       }
-    },
-    changeFullShow() {
-      this.isShow = !screenfull.isFullscreen
-    },
+    })
+    onUnmounted(()=>{
+      screenfull.off('change', methods.changeFullShow)
+    })
+    return {
+      ...data,
+      ...methods
+    }
   },
-  destroyed() {
-    screenfull.off('change', this.changeFullShow)
-  },
-}
+})
 </script>
 <style scoped>
 .screenfull-svg {

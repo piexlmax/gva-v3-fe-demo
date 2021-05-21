@@ -3,7 +3,7 @@
     <transition name="el-fade-in-linear">
       <div class="transition-box" style="display: inline-block; " v-show="show">
         <el-select
-          ref="search-input"
+          ref="searchInput"
           @blur="hiddenSearch"
           @change="changeRouter"
           filterable
@@ -30,36 +30,47 @@
     </div>
   </div>
 </template>
-<script>
-import { mapGetters } from "vuex";
+<script lang="ts">
+import { useStore} from "vuex";
+import {defineComponent, reactive, nextTick, ref, computed} from "vue";
+import {useRouter} from "vue-router";
 
-export default {
+export default defineComponent({
   name: "searchComponent",
-  data() {
-    return {
+  setup(){
+    const Router = useRouter()
+    const searchInput = ref()
+    const Store = useStore()
+    const routerList = computed(()=>{
+      return Store.state.routerList
+    })
+    const data = reactive({
       value: "",
       show: false
-    };
-  },
-  computed: {
-    ...mapGetters("router", ["routerList"])
-  },
-  methods: {
-    changeRouter() {
-      this.$router.push({ name: this.value });
-      this.value = "";
-    },
-    hiddenSearch() {
-      this.show = false;
-    },
-    showSearch() {
-      this.show = true;
-      this.$nextTick(() => {
-        this.$refs["search-input"].focus();
-      });
+    })
+    const methods = {
+      changeRouter:()=> {
+        Router.push({ name: data.value });
+        data.value = "";
+      },
+      hiddenSearch:()=> {
+        data.show = false;
+      },
+      showSearch:()=> {
+        data.show = true;
+        nextTick(() => {
+          searchInput.focus();
+        });
+      }
     }
-  }
-};
+    return {
+      ...data,
+      ...methods,
+      searchInput,
+      routerList
+    }
+  },
+});
 </script>
 <style lang="scss">
 </style>

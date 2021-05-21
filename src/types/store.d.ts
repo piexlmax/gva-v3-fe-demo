@@ -1,4 +1,8 @@
 
+export interface State {
+    user: UserState
+}
+
 export interface UserInfo{
     uuid: string,
     nickName: string,

@@ -11,6 +11,7 @@
     "axios": "^0.21.1",
     "element-plus": "^1.0.2-beta.41",
     "sass": "^1.32.12",
+    "screenfull": "^5.1.0",
     "vue": "^3.0.5",
     "vue-router": "^4.0.4",
     "vuex": "^4.0.0"

@@ -26,7 +26,7 @@
     </ul>
   </div>
 </template>
-<script>
+<script lang="ts">
 import {mapGetters, useStore} from "vuex";
 import {computed, defineComponent, onBeforeUnmount, reactive} from "vue";
 import {useRoute, useRouter} from "vue-router";
@@ -42,7 +42,9 @@ export default defineComponent({
     const Router = useRouter()
     const Route = useRoute()
     const Store = useStore()
-    const userInfo = Store.state.state.userInfo
+    const userInfo = computed(()=>{
+      return Store.state.state.userInfo
+    })
     const defaultRouter = computed(()=>{
       return userInfo.authority.defaultRouter;
     })
@@ -238,10 +240,12 @@ export default defineComponent({
     })
     return{
       ...data,
-      ...methods
+      ...methods,
+      userInfo
     }
   },
 
+  // TODO: watch 部分
 
   watch: {
     contextMenuVisible() {
