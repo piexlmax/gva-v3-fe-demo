@@ -17,7 +17,7 @@ export default defineComponent({
       return;
     }
     onMounted(() => {
-      test()
+      // test()
     })
     return { pang, msg: props.msg };
   },

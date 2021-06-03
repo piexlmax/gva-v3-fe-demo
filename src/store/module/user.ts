@@ -1,4 +1,4 @@
-import { UserState } from "@/store/module/types/user"
+import { UserState } from "@/types/store/module/user"
 export const user = {
   state(): UserState {
     return {
