@@ -3,6 +3,11 @@ import vue from '@vitejs/plugin-vue'
 import fs from "fs"
 import dotenv from 'dotenv'
 import styleImport from 'vite-plugin-style-import'
+import AutoImport from 'unplugin-auto-import/vite'
+// @ts-ignore
+import Components from 'unplugin-vue-components/vite'
+// @ts-ignore
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 const {resolve} = require('path')
 
 // https://vitejs.dev/config/
@@ -11,6 +16,7 @@ export default defineConfig(({mode}:UserConfig):UserConfig=>{
   const GVA_ENV = dotenv.parse(fs.readFileSync(`.env.${mode}`))
   const reg = new RegExp("^"+GVA_ENV.VITE_BASE_API)
   return{
+    base: './',
     resolve:{
       alias: {
         '@': resolve(__dirname, './src'),
@@ -28,6 +34,12 @@ export default defineConfig(({mode}:UserConfig):UserConfig=>{
   },
   plugins: [
     vue(),
+    AutoImport({
+      resolvers: [ElementPlusResolver()],
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()],
+    }),
     styleImport({
       libs: [{
         libraryName: 'element-plus',
