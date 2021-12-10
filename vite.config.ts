@@ -13,7 +13,7 @@ export default defineConfig(({mode}:UserConfig):UserConfig=>{
   return{
     resolve:{
       alias: {
-        '@': resolve(__dirname, '/src'),
+        '@': resolve(__dirname, './src'),
       }
   },
   server: {
