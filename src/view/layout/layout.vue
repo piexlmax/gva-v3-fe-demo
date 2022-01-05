@@ -1,26 +1,27 @@
 <template>
   <div>
-   <el-upload
-    drag
-    action="https://jsonplaceholder.typicode.com/posts/"
-    multiple
-  >
-    <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-    <div class="el-upload__text">
-      拖拽文件到此或 <em>点击上传</em>
-    </div>
-    <template #tip>
-      <div class="el-upload__tip">
-        jpg/png files with a size less than 500kb
-      </div>
-    </template>
-  </el-upload>
+    {{user.count}}
+  <div @click="test">++</div>
+  <div @click="test2">--</div>
+  <Test></Test>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { UploadFilled } from '@element-plus/icons-vue'
+import { useCounterStore } from "@/pinia/user"
 import { ref } from "vue";
+import Test from "@/components/test.vue"
+const user = useCounterStore()
+const test = ()=>{
+  user.count++
+  user.increment()
+  user.$patch({count:user.count+1})
+}
+
+const test2 = ()=>{
+  user.count--
+}
 const count = ref("hello gva");
 const ping = (pang: string): void => {
   console.log(pang);
