@@ -2,12 +2,6 @@ import { defineConfig,UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import fs from "fs"
 import dotenv from 'dotenv'
-import styleImport from 'vite-plugin-style-import'
-import AutoImport from 'unplugin-auto-import/vite'
-// @ts-ignore
-import Components from 'unplugin-vue-components/vite'
-// @ts-ignore
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 const {resolve} = require('path')
 
 // https://vitejs.dev/config/
@@ -33,27 +27,7 @@ export default defineConfig(({mode}:UserConfig):UserConfig=>{
     }
   },
   plugins: [
-    vue(),
-    AutoImport({
-      resolvers: [ElementPlusResolver()],
-    }),
-    Components({
-      resolvers: [ElementPlusResolver()],
-    }),
-    styleImport({
-      libs: [{
-        libraryName: 'element-plus',
-        esModule: true,
-        ensureStyleFile: true,
-        resolveStyle: (name) => {
-          name = name.slice(3)
-          return `element-plus/packages/theme-chalk/src/${name}.scss`;
-        },
-        resolveComponent: (name) => {
-          return `element-plus/lib/${name}`;
-        },
-      }]
-    })
+    vue()
   ]
   }
 })
